@@ -90,7 +90,7 @@ uid=1000 gid=3000 groups=3000,4000
 
 You can see `Strict` policy can exclude group `50000` from `groups`! 
 
-Thus, ensuring `supplementalGroupsPolicy: Merge` (enforced by some policy mechanism) helps prevent the implicit supplementary groups in a Pod.
+Thus, ensuring `supplementalGroupsPolicy: Strict` (enforced by some policy mechanism) helps prevent the implicit supplementary groups in a Pod.
 
 {{<note>}}
 Actually, this is not enough because container with sufficient privileges / capability can change its process identity. Please see the following section for details.
@@ -153,8 +153,9 @@ the feature gate manually.
 ## How can I learn more?
 
 <!-- https://github.com/kubernetes/website/pull/46920 -->
-Please check out the [documentation](/docs/tasks/configure-pod-container/security-context/)
-for the further details of `supplementalGroupsPolicy`.
+- [Configure a Security Context for a Pod or Container](/docs/tasks/configure-pod-container/security-context/)
+for the further details of `supplementalGroupsPolicy`
+- [KEP-3619: Fine-grained SupplementalGroups control](https://github.com/kubernetes/enhancements/issues/3619)
 
 ## How to get involved?
 
