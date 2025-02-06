@@ -50,6 +50,35 @@ body {
   }
 }
 
+/* Gutter for sidebar splitter */
+.gutter {
+    background-color: #eee;
+    background-repeat: no-repeat;
+    background-position: 50%;
+}
+
+.gutter.gutter-horizontal {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
+    cursor: col-resize;
+}
+
+#sidebarnav,
+#maindoc {
+  max-width: 100%;
+}
+
+#maindoc {
+  overflow-wrap: break-word;
+}
+
+@media (max-width: 768px) {
+  #sidebarnav {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+}
+
 /* Complex table layout support */
 
 .td-content, body.td-content {
@@ -93,6 +122,33 @@ body.td-home main[role="main"] > section:first-of-type .content p:first-child {
 #videoPlayer {
   #closeButton {
     background: transparent;
+  }
+}
+
+.section-feature#kubeweekly {
+
+  a.kubeweekly-signup, a.kubeweekly-signup:hover {
+    color: $primary;
+    font-weight: 400;
+    font-size: 1.1rem;
+  }
+  > .kubeweekly-inner {
+    form p {
+      text-align: center;
+      font-size: 1.2rem;
+      color: $black;
+    }
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 2rem;
+  }
+
+  h5 {
+    text-align: center;
+
+    a:hover {
+      text-decoration: underline;
+    }
   }
 }
 
