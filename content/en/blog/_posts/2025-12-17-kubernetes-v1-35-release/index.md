@@ -14,7 +14,7 @@ Similar to previous releases, the release of Kubernetes v1.35 introduces new sta
 
 This release consists of 60 enhancements, including 17 stable, 19 beta, and 22 alpha features.
 
-There are also some [deprecations and removals](#deprecations-and-removals) in this release; make sure to read about those.
+There are also some [deprecations and removals](#deprecations-removals-and-community-updates) in this release; make sure to read about those.
 
 ## Release theme and logo
 
@@ -400,7 +400,7 @@ Previously, restarting the `kubelet` service often caused a temporary disruption
 
 To address this reliability issue, this behavior has been corrected to ensure seamless node maintenance. The `kubelet` now properly restores the state of existing containers from the runtime upon startup. This ensures that your workloads remain `Ready` and traffic continues to flow uninterrupted during `kubelet` restarts or upgrades.
 
-You can find more in [KEP-4781: Fix inconsistent container ready state after kubelet restart](https://kep.k8s.io/4871).
+You can find more in [KEP-4781: Fix inconsistent container ready state after kubelet restart](https://kep.k8s.io/4781).
 
 ## Release notes
 
@@ -454,7 +454,6 @@ Explore upcoming Kubernetes and cloud native events, including KubeCon \+ CloudN
 
 **June 2026**
 
-- [**KubeCon + CloudNativeCon China 2026**](https://events.linuxfoundation.org/kubecon-cloudnativecon-china/): Jun 10-11, 2026 | Hong Kong
 - [**KubeCon + CloudNativeCon India 2026**](https://events.linuxfoundation.org/kubecon-cloudnativecon-india/): Jun 18-19, 2026 | Mumbai, India
 - [**KCD - Kubernetes Community Days:  Kuala Lumpur**](https://community.cncf.io/kcd-kuala-lumpur-2026/): Jun 27, 2026 | Kuala Lumpur, Malaysia
 
