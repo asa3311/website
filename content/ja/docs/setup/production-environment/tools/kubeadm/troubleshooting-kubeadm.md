@@ -19,7 +19,7 @@ weight: 20
 <!-- body -->
 
 ## RBACがないため、v1.18ノードをv1.17クラスターに結合できない
-v1.18では、同名のノードが既に存在する場合にクラスター内のノードに参加しないようにする機能を追加しました。これには、ブートストラップトークンユーザがNodeオブジェクトをGETできるようにRBACを追加する必要がありました。
+v1.18では、同名のノードが既に存在する場合にクラスター内のノードに参加しないようにする機能を追加しました。これには、ブートストラップトークンユーザーがNodeオブジェクトをGETできるようにRBACを追加する必要がありました。
 
 しかし、これによりv1.18の`kubeadm join`がkubeadm v1.17で作成したクラスターに参加できないという問題が発生します。
 
@@ -81,7 +81,7 @@ subjects:
 これはいくつかの問題が原因となっている可能性があります。最も一般的なのは:
 
 - ネットワーク接続の問題が挙げられます。続行する前に、お使いのマシンがネットワークに完全に接続されていることを確認してください。
-- kubeletのデフォルトのcgroupドライバの設定がDockerで使用されているものとは異なっている場合も考えられます。
+- kubeletのデフォルトのcgroupドライバーの設定がDockerで使用されているものとは異なっている場合も考えられます。
   システムログファイル(例: `/var/log/message`)をチェックするか、`journalctl -u kubelet`の出力を調べてください:
 
   ```shell
@@ -89,11 +89,11 @@ subjects:
   misconfiguration: kubelet cgroup driver: "systemd" is different from docker cgroup driver: "cgroupfs"
   ```
 
-  以上のようなエラーが現れていた場合、cgroupドライバの問題を解決するには、以下の2つの方法があります:
+  以上のようなエラーが現れていた場合、cgroupドライバーの問題を解決するには、以下の2つの方法があります:
 
  1. [ここ](/ja/docs/setup/independent/install-kubeadm/#installing-docker)の指示に従ってDockerを再度インストールします。
 
- 1. Dockerのcgroupドライバに合わせてkubeletの設定を手動で変更します。その際は、[マスターノード上でkubeletが使用するcgroupドライバを設定する](/ja/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-master-node)を参照してください。
+ 1. Dockerのcgroupドライバーに合わせてkubeletの設定を手動で変更します。その際は、[マスターノード上でkubeletが使用するcgroupドライバーを設定する](/ja/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-master-node)を参照してください。
 
 - control plane Dockerコンテナがクラッシュループしたり、ハングしたりしています。これは`docker ps`を実行し、`docker logs`を実行して各コンテナを調査することで確認できます。
 
@@ -173,7 +173,7 @@ Unable to connect to the server: x509: certificate signed by unknown authority (
   export KUBECONFIG=/etc/kubernetes/admin.conf
   ```
 
-- もう一つの回避策は、既存の`kubeconfig`を"admin"ユーザに上書きすることです:
+- もう一つの回避策は、既存の`kubeconfig`を"admin"ユーザーに上書きすることです:
 
   ```sh
   mv  $HOME/.kube $HOME/.kube.bak
