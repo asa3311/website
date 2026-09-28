@@ -16,6 +16,14 @@ builds it, copies it into your website clone, and ends with a page to check, so
 you can finish one set before you start the next. The [summary](#summary) at the
 end lists every target, its output, and the pull requests to open.
 
+{{< note >}}
+The Release Team Docs Lead and the Docs shadows run this process during a release
+cycle. The
+[Docs role handbook](https://github.com/kubernetes/sig-release/tree/master/release-team/role-handbooks/docs)
+in `kubernetes/sig-release` covers the rest of that role. If the handbook gains
+its own steps for generating reference documentation, update this page to match.
+{{< /note >}}
+
 ## {{% heading "prerequisites" %}}
 
 {{< include "prerequisites-ref-docs.md" >}}
@@ -121,31 +129,50 @@ To keep the temporary checkout and the generation log for troubleshooting:
 KEEP_TMP=1 make updateapispec-enums-from-source
 ```
 
-### Option 2: Copy the committed specification from a local clone
+### Option 2: Generate the specification in a local clone
 
-This option needs a local `kubernetes/kubernetes` clone, and it copies the
-specification much faster.
+Use this option when you already have a `kubernetes/kubernetes` clone and do
+not want a second one. You skip cloning, but still run the same generator as
+Option 1, and it modifies your clone.
+
+Commit or stash any existing changes in your clone before continuing.
+Replace the path below with your local clone path, then check out the release
+tag:
+
+```shell
+export K8S_ROOT="<your-path-to>/kubernetes"
+cd "$K8S_ROOT"
+git checkout "v$K8S_RELEASE"
+```
+
+Then set `OpenAPIEnums=true` in `hack/update-openapi-spec.sh` and run it to
+regenerate `api/openapi-spec/swagger.json`. This requires the tools and free
+ports described in Option 1:
+
+```shell
+hack/update-openapi-spec.sh
+```
 
 {{< note >}}
-The specification committed in `kubernetes/kubernetes` is generated with
-`OpenAPIEnums=false`. In your `kubernetes/kubernetes` clone, set
-`OpenAPIEnums=true` in `hack/update-openapi-spec.sh` before you regenerate the
-specification. Without it, the specification carries no enum values, and the
+Without `OpenAPIEnums=true`, the specification carries no enum values, and the
 published API reference omits the possible values of every enumerated field.
 {{< /note >}}
 
-In your `kubernetes/kubernetes` clone, run `hack/update-openapi-spec.sh` and
-commit the regenerated `api/openapi-spec/swagger.json` at tag `v$K8S_RELEASE`.
-Then copy it into `reference-docs`:
+After generation, restore the script:
 
 ```shell
-export K8S_ROOT=<your-path-to>/kubernetes
-cd <rdocs-base>
-make updateapispec
+git checkout -- hack/update-openapi-spec.sh
 ```
 
-The target reads the file as it is committed at that tag, not the file in your
-working tree. This is the only step on this page that reads `K8S_ROOT`.
+Copy the regenerated specification from your clone's working tree into the
+versioned configuration directory created earlier. Replace `<rdocs-base>`
+with the path to your `reference-docs` clone:
+
+```shell
+cd "<rdocs-base>"
+cp "$K8S_ROOT/api/openapi-spec/swagger.json" \
+  gen-apidocs/config/v{{< skew currentVersionAddMinor 1 "_" >}}/swagger.json
+```
 
 ### Check the specification
 
@@ -500,3 +527,5 @@ or in the generator instead.
 * [Generating Reference Documentation for kubectl Commands](/docs/contribute/generate-ref-docs/kubectl/)
 * [Generating Reference Documentation for Metrics](/docs/contribute/generate-ref-docs/metrics-reference/)
 * [Contributing to the Upstream Kubernetes Code](/docs/contribute/generate-ref-docs/contribute-upstream/)
+* [Docs role handbook](https://github.com/kubernetes/sig-release/tree/master/release-team/role-handbooks/docs)
+  in `kubernetes/sig-release`
